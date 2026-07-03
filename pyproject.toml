@@ -14,6 +14,7 @@ dependencies = [
     "piccolo",
     "ormar",
     "sqlmodel",
+    "fastapi-startkit[sqlite]",
     "databases[aiosqlite]",
     "aiosqlite",
     # DB drivers
