@@ -29,6 +29,9 @@ already declared in the repo's
 `python -c "import fastapi_startkit.masoniteorm"` succeeds, no further setup is
 needed.
 
+> Run inside the project venv with deps installed (`pip install -e .` / `make deps`).
+> A bare `python` on PATH may resolve a different, unprovisioned interpreter.
+
 ## Running
 
 ```sh
