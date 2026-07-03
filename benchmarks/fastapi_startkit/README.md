@@ -13,19 +13,18 @@ used; no private internals and no `PYTHONPATH` tricks.
 
 ## Requirements
 
-Install the framework with the database core extra plus the driver extra(s) you
-need:
+Install the framework with the `database` core extra plus the driver extra(s) for
+the backend(s) you want to benchmark:
 
 ```sh
-# SQLite (default)
-pip install "fastapi-startkit[database,sqlite]"
-
-# Postgres / MySQL backends
-pip install "fastapi-startkit[database,postgres,mysql]"
+fastapi-startkit[database]   # SQLAlchemy async ORM
+fastapi-startkit[postgres]   # asyncpg driver
+fastapi-startkit[sqlite]     # aiosqlite driver
+fastapi-startkit[mysql]      # aiomysql driver
 ```
 
-The `database` extra pulls in SQLAlchemy; the `sqlite`/`postgres`/`mysql` extras
-pull in `aiosqlite`/`asyncpg`/`aiomysql`. It is already declared in the repo's
+For example, SQLite: `pip install "fastapi-startkit[database,sqlite]"`. It is
+already declared in the repo's
 `pyproject.toml`, so `make deps` / `pip install -e .` installs it. Once
 `python -c "import fastapi_startkit.masoniteorm"` succeeds, no further setup is
 needed.
