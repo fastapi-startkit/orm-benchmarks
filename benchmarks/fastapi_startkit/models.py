@@ -20,33 +20,33 @@ from fastapi_startkit.masoniteorm import (
     SQLiteConfig,
 )
 
-dbtype = os.environ.get("DBTYPE", "") or "sqlite"
-
-if dbtype == "postgres":
-    _connection = PostgresConfig(
+_CONNECTIONS = {
+    "postgres": lambda: PostgresConfig(
         driver="postgres",
         host="localhost",
         port=os.environ.get("PGPORT", "5432"),
         database="tbench",
         username="postgres",
         password=os.environ.get("PASSWORD", ""),
-    )
-elif dbtype == "mysql":
-    _connection = MySQLConfig(
+    ),
+    "mysql": lambda: MySQLConfig(
         driver="mysql",
         host="localhost",
         port=os.environ.get("MYPORT", "3306"),
         database="tbench",
         username="root",
         password=os.environ.get("PASSWORD", ""),
-    )
-else:
-    dbtype = "sqlite"
-    _connection = SQLiteConfig(
+    ),
+    "sqlite": lambda: SQLiteConfig(
         driver="sqlite",
         database="/tmp/db.sqlite3",
         url="sqlite+aiosqlite:////tmp/db.sqlite3",
-    )
+    ),
+}
+
+dbtype = os.environ.get("DBTYPE", "") or "sqlite"
+dbtype = dbtype if dbtype in _CONNECTIONS else "sqlite"
+_connection = _CONNECTIONS[dbtype]()
 
 
 @dataclass
