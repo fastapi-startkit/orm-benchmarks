@@ -25,7 +25,6 @@ tortoise/bench.sh | tee -a outfile1
 piccolo/bench.sh | tee -a outfile1
 ormar/bench.sh | tee -a outfile1
 sqlmodel/bench.sh | tee -a outfile1
-fastapi_startkit/bench.sh | tee -a outfile1
 
 
 echo Test 2
