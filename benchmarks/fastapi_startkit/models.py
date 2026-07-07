@@ -25,6 +25,9 @@ from fastapi_startkit.masoniteorm import (
 )
 
 _CONNECTIONS = {
+    # Postgres/MySQL configs ship a bogus default url (sqlite+aiosqlite://...),
+    # and build_url() prefers url over host/port — so the url must be set
+    # explicitly or the connection silently falls back to SQLite.
     "postgres": lambda: PostgresConfig(
         driver="postgres",
         host="localhost",
@@ -32,6 +35,10 @@ _CONNECTIONS = {
         database="tbench",
         username="postgres",
         password=os.environ.get("PASSWORD", ""),
+        url=(
+            f"postgresql+asyncpg://postgres:{os.environ.get('PASSWORD', '')}"
+            f"@localhost:{os.environ.get('PGPORT', '5432')}/tbench"
+        ),
     ),
     "mysql": lambda: MySQLConfig(
         driver="mysql",
@@ -40,6 +47,10 @@ _CONNECTIONS = {
         database="tbench",
         username="root",
         password=os.environ.get("PASSWORD", ""),
+        url=(
+            f"mysql+aiomysql://root:{os.environ.get('PASSWORD', '')}"
+            f"@localhost:{os.environ.get('MYPORT', '3306')}/tbench"
+        ),
     ),
     "sqlite": lambda: SQLiteConfig(
         driver="sqlite",

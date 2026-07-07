@@ -17,14 +17,7 @@ echo Test 1
 export TEST=1
 printf '' > outfile1
 
-django/bench.sh | tee -a outfile1
-peewee/bench.sh | tee -a outfile1
 sqlalchemy_async/bench.sh | tee -a outfile1
-sqlobject/bench.sh | tee -a outfile1
-tortoise/bench.sh | tee -a outfile1
-piccolo/bench.sh | tee -a outfile1
-ormar/bench.sh | tee -a outfile1
-sqlmodel/bench.sh | tee -a outfile1
 fastapi_startkit/bench.sh | tee -a outfile1
 
 
@@ -32,14 +25,7 @@ echo Test 2
 export TEST=2
 printf '' > outfile2
 
-django/bench.sh | tee -a outfile2
-peewee/bench.sh | tee -a outfile2
 sqlalchemy_async/bench.sh | tee -a outfile2
-sqlobject/bench.sh | tee -a outfile2
-tortoise/bench.sh | tee -a outfile2
-piccolo/bench.sh | tee -a outfile2
-ormar/bench.sh | tee -a outfile2
-sqlmodel/bench.sh | tee -a outfile2
 fastapi_startkit/bench.sh | tee -a outfile2
 
 
@@ -47,14 +33,7 @@ echo Test 3
 export TEST=3
 printf '' > outfile3
 
-django/bench.sh | tee -a outfile3
-peewee/bench.sh | tee -a outfile3
 sqlalchemy_async/bench.sh | tee -a outfile3
-sqlobject/bench.sh | tee -a outfile3
-tortoise/bench.sh | tee -a outfile3
-piccolo/bench.sh | tee -a outfile3
-ormar/bench.sh | tee -a outfile3
-sqlmodel/bench.sh | tee -a outfile3
 fastapi_startkit/bench.sh | tee -a outfile3
 
 echo `python -V`, Iterations: $ITERATIONS DBtype: $DBTYPE | tee -a results
