@@ -47,14 +47,24 @@ Environment variables (shared with the other benchmarks):
 - `ITERATIONS` — rows to insert (default `1000`)
 - `PASSWORD`, `PGPORT`, `MYPORT` — credentials/ports for postgres/mysql
 
-Expected output:
+Expected output (one line per operation A–K):
 
 ```
 FastAPI-Startkit, A: Rows/sec:    XXXX.XX
+FastAPI-Startkit, B: Rows/sec:    XXXX.XX
+...
+FastAPI-Startkit, K: Rows/sec:    XXXX.XX
 ```
+
+`TEST` selects the model shape (as in the other benchmarks): `1` simple, `2` FK
+relations, `3` wide model (32+ fields).
 
 ## Scope
 
-Currently implements the simple model (Test 1), operation **A** — single insert —
-mirroring `benchmarks/django/simple/test_a.py`. Operations B–K and Tests 2–3 are
-follow-ups.
+Implements all 11 operations (A–K) across Tests 1–3, mirroring the semantics of
+`benchmarks/django`. Unlike the other async ORMs — which run each operation under
+`asyncio.gather` with `CONCURRENTS` independent sessions — these tests run
+**sequentially**: MasoniteORM routes through a single shared connection manager,
+which SQLAlchemy's async engine cannot use safely from concurrent tasks. On SQLite
+this makes no difference (writes serialize on one connection anyway); on
+Postgres/MySQL it means the numbers reflect single-connection throughput.
