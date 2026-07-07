@@ -14,6 +14,7 @@ Comprehensive performance benchmarks comparing popular Python ORMs across Postgr
 | [Piccolo](https://github.com/piccolo-orm/piccolo) | async | asyncpg | — | aiosqlite |
 | [ormar](https://github.com/collerek/ormar) | async | asyncpg | aiomysql | aiosqlite |
 | [SQLModel](https://github.com/tiangolo/sqlmodel) | async | asyncpg | aiomysql | aiosqlite |
+| [FastAPI-Startkit](https://fastapi-startkit.github.io/docs/database/) | async | asyncpg | aiomysql | aiosqlite |
 
 > **Environment:** Python 3.14, macOS (Apple Silicon), 100 iterations per operation.
 > Piccolo does not support MySQL.
