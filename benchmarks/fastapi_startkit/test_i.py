@@ -14,9 +14,9 @@ async def runtest(loopstr):
     start = time.time()
     await DB.begin_transaction()
     for obj in objs:
-        obj.level = choice(LEVEL_CHOICE)
-        obj.text = f"{obj.text} Update"
-        await obj.save()
+        await Journal.where("id", obj.id).update(
+            {"level": choice(LEVEL_CHOICE), "text": f"{obj.text} Update"}
+        )
     await DB.commit()
     now = time.time()
     print(f"FastAPI-Startkit{loopstr}, I: Rows/sec: {count / (now - start): 10.2f}")

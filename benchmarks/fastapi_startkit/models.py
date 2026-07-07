@@ -25,6 +25,9 @@ from fastapi_startkit.masoniteorm import (
 )
 
 _CONNECTIONS = {
+    # Postgres/MySQL configs ship a bogus default url (sqlite+aiosqlite://...),
+    # and build_url() prefers url over host/port — so the url must be set
+    # explicitly or the connection silently falls back to SQLite.
     "postgres": lambda: PostgresConfig(
         driver="postgres",
         host="localhost",
@@ -32,6 +35,10 @@ _CONNECTIONS = {
         database="tbench",
         username="postgres",
         password=os.environ.get("PASSWORD", ""),
+        url=(
+            f"postgresql+asyncpg://postgres:{os.environ.get('PASSWORD', '')}"
+            f"@localhost:{os.environ.get('PGPORT', '5432')}/tbench"
+        ),
     ),
     "mysql": lambda: MySQLConfig(
         driver="mysql",
@@ -40,6 +47,10 @@ _CONNECTIONS = {
         database="tbench",
         username="root",
         password=os.environ.get("PASSWORD", ""),
+        url=(
+            f"mysql+aiomysql://root:{os.environ.get('PASSWORD', '')}"
+            f"@localhost:{os.environ.get('MYPORT', '3306')}/tbench"
+        ),
     ),
     "sqlite": lambda: SQLiteConfig(
         driver="sqlite",
@@ -68,7 +79,9 @@ TEST = int(os.environ.get("TEST", "1"))
 # exercises all columns. Series 1 & 3 carry values (NOT NULL); series 2 & 4 stay
 # NULL, mirroring the Django/SQLModel wide model.
 _WIDE_TYPES = [
-    ("float", "float"),
+    # `double` not `float`: MasoniteORM's float() emits FLOAT(19,4), which
+    # Postgres rejects as a syntax error; double -> DOUBLE PRECISION is portable.
+    ("float", "double"),
     ("smallint", "small_integer"),
     ("int", "integer"),
     ("bigint", "big_integer"),
