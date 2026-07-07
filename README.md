@@ -55,6 +55,13 @@ Comprehensive performance benchmarks comparing popular Python ORMs across Postgr
 > **N/A** due to an upstream MasoniteORM MySQL UPDATE-grammar bug (emits
 > ``SET `users`.<col> … WHERE `users`.id`` → *Unknown column 'users.id'*); the
 > MySQL geometric mean is computed over the available operations.
+>
+> On the **wide model (Test 3)** only, FastAPI-Startkit's `Insert: Bulk` collapses
+> to roughly `Insert: Batch` throughput (SQLite: batch is consistently a bit
+> faster; PostgreSQL: batch ≈ bulk, within run-to-run noise) — the single giant
+> multi-row `INSERT` must marshal 32+ columns per row, which offsets the
+> round-trip savings that make bulk dominate on the narrow models (Tests 1–2).
+> This inverted/flat Bulk-vs-Batch trend is expected for the wide model.
 
 ## Results: PostgreSQL 17
 
