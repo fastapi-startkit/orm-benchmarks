@@ -10,7 +10,8 @@ count = int(os.environ.get("ITERATIONS", "1000"))
 
 async def runtest(loopstr):
     start = time.time()
-    for i in range(count):
-        await Journal.create(row({"level": choice(LEVEL_CHOICE), "text": f"Insert from A, item {i}"}))
+    await Journal.query().insert(
+        [row({"level": choice(LEVEL_CHOICE), "text": f"Insert from C, item {i}"}) for i in range(count)]
+    )
     now = time.time()
-    print(f"FastAPI-Startkit{loopstr}, A: Rows/sec: {count / (now - start): 10.2f}")
+    print(f"FastAPI-Startkit{loopstr}, C: Rows/sec: {count / (now - start): 10.2f}")
