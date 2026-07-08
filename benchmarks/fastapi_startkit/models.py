@@ -77,7 +77,7 @@ TEST = int(os.environ.get("TEST", "1"))
 
 # Wide-model (Test 3) column defaults, merged into every insert so the write
 # exercises all columns. Series 1 & 3 carry values (NOT NULL); series 2 & 4 stay
-# NULL, mirroring the Django/SQLModel wide model.
+# NULL, mirroring the SQLModel wide model.
 _WIDE_TYPES = [
     # `double` not `float`: MasoniteORM's float() emits FLOAT(19,4), which
     # Postgres rejects as a syntax error; double -> DOUBLE PRECISION is portable.

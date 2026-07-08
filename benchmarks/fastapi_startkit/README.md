@@ -62,7 +62,7 @@ relations, `3` wide model (32+ fields).
 ## Scope
 
 Implements all 11 operations (A–K) across Tests 1–3, mirroring the semantics of
-`benchmarks/django`. Unlike the other async ORMs — which run each operation under
+the sibling benchmarks (e.g. `benchmarks/sqlmodel`). Unlike the other async ORMs — which run each operation under
 `asyncio.gather` with `CONCURRENTS` independent sessions — these tests run
 **sequentially**: MasoniteORM routes through a single shared connection manager,
 which SQLAlchemy's async engine cannot use safely from concurrent tasks. On SQLite

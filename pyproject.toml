@@ -1,37 +1,22 @@
 [project]
 name = "orm-benchmarks"
 version = "0.1.0"
-description = "Benchmarks for ORMs"
+description = "Benchmark: FastAPI-Startkit vs SQLModel vs SQLAlchemy (async)"
 requires-python = ">=3.10"
 
 dependencies = [
-    # ORM's
-    "django",
-    "sqlalchemy",
-    "peewee",
-    "sqlobject",
-    "tortoise-orm",
-    "piccolo",
-    "ormar",
-    "sqlmodel",
+    # ORMs
     "fastapi-startkit[database,sqlite,postgres,mysql]>=0.46.0",
-    "databases[aiosqlite]",
-    "aiosqlite",
+    "sqlmodel",
+    "sqlalchemy",
     # DB drivers
+    "aiosqlite",
     "asyncpg",
-    "asyncmy",
-    "psycopg2-binary",
+    "aiomysql",
     # Recommended accelerators
     "uvloop",
-    "python-rapidjson",
     "greenlet",
-    # Charts
-    "matplotlib",
-    "numpy",
 ]
-
-[tool.uv.sources]
-tortoise-orm = { path = "/Users/abondar/PycharmProjects/tortoise-orm", editable = true }
 
 [build-system]
 requires = ["hatchling"]
